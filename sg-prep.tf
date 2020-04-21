@@ -59,7 +59,7 @@ module "prep_sg" {
       {
         from_port   = 9000
         to_port     = 9000
-        protocol    = "udp"
+        protocol    = "tcp"
         description = ""
         cidr_blocks = "0.0.0.0/0"
       },
