@@ -1,13 +1,13 @@
-module "sentry_node_sg" {
+module "citizen_node_sg" {
   source      = "github.com/terraform-aws-modules/terraform-aws-security-group.git?ref=v3.2.0"
-  name        = var.sentry_sg_name
+  name        = var.citizen_sg_name
   description = "All traffic"
 
-  create = local.sentry_enabled
+  create = local.citizen_enabled
 
   vpc_id = module.vpc.vpc_id
   tags = merge({
-    Name : var.sentry_sg_name
+    Name : var.citizen_sg_name
   }, module.label.tags)
 
   ingress_with_source_security_group_id = concat(local.bastion_enabled ? [
@@ -50,13 +50,6 @@ module "sentry_node_sg" {
 
   ingress_with_cidr_blocks = concat(
     [
-      {
-        from_port   = 7100
-        to_port     = 7100
-        protocol    = "tcp"
-        description = ""
-        cidr_blocks = "0.0.0.0/0"
-      },
       {
         from_port   = 9000
         to_port     = 9000
