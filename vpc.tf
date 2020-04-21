@@ -26,7 +26,7 @@ locals {
     local.num_azs + subnet_num,
   )]
 
-  cluster_name = var.cluster_name == "" ? random_pet.this.id : var.cluster_name
+  cluster_name = var.cluster_name == "" ? module.label.id : var.cluster_name
 }
 
 data "aws_availability_zones" "available" {
@@ -35,8 +35,8 @@ data "aws_availability_zones" "available" {
 
 module "vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc.git?ref=v2.15.0"
-  name   = var.vpc_name
 
+  name = module.label.id
   tags = module.label.tags
 
   enable_nat_gateway     = false
